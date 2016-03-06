@@ -2,13 +2,16 @@
 
 ![](shot.png)
 
-Quit your [10Bis](10bis.co.il) guesswork and never get stuck with an empty account.
+A [bitbar](https://getbitbar.com) plugin that helps you quit your
+[10Bis](10bis.co.il) guesswork and never get stuck with an empty (or overly
+full) account.
 
 
 ## Quick Start
 
-Download a binary from the [releases]() section. Then unzip it to your bitbar
-plugins folder, and continue to the configuration section.
+Install [bitbar](https://getbitbar.com) and configure a plugin directory if you
+never did. Download a binary from the [releases](https://github.com/jondot/10bisbar/releases) section. Then unzip it to
+your bitbar plugins folder, and continue to the configuration section.
 
 
 Or, if you prefer to build on your own and produce a binary. You'll need Go and
