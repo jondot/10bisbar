@@ -10,23 +10,24 @@ full) account.
 ## Quick Start
 
 Install [bitbar](https://getbitbar.com) and configure a plugin directory if you
-never did. Download a binary from the [releases](https://github.com/jondot/10bisbar/releases) section. Then unzip it to
-your bitbar plugins folder, and continue to the configuration section.
+never did. Download a 10bisbar binary from the [releases](https://github.com/jondot/10bisbar/releases) section and extract it to
+your bitbar plugins folder, then continue to the configuration section.
 
 
 Or, if you prefer to build on your own and produce a binary. You'll need Go and
-UPX (`brew install upx`).
+UPX (`brew install upx`). Then, run:
 
 `$ make dist`
 
-Then point bitbar to this folder, or simply copy the `10bisbar` binary to your plugins folder.
-There are no dependencies so you should be good to go immediately.
+After that's done, point bitbar to this folder, or simply copy the resulting
+`10bisbar` binary to your plugins folder. There are no dependencies so you
+should be good to go immediately.
 
 ### Configuration
 
 Place a file called `.10bis.json` at your home folder, so that it will be found in `~/.10bis.json`.
 
-Copy this sample:
+For file's the content, start with this sample:
 
 ```json
 {
@@ -40,6 +41,7 @@ Copy this sample:
 Put your username and password in, and then put your favorite meal price options in `prices`. Finally,
 indicate how many days per week you don't use 10bis at all (typically weekends).
 
+Refresh your bitbar, and you're good to go.
 
 # Contributing
 Fork, implement, add tests, pull request, get my everlasting thanks and a respectable place here :).
@@ -47,7 +49,7 @@ Fork, implement, add tests, pull request, get my everlasting thanks and a respec
 
 # Copyright
 
-Copyright (c) 2014 [Dotan Nahum](http://gplus.to/dotan) [@jondot](http://twitter.com/jondot). See MIT-LICENSE for further details.
+Copyright (c) 2016 [Dotan Nahum](http://gplus.to/dotan) [@jondot](http://twitter.com/jondot). See MIT-LICENSE for further details.
 
 
 
