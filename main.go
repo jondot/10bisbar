@@ -1,28 +1,28 @@
 package main
 
-import(
-	"path/filepath"
-	"os/user"
-	"io/ioutil"
-	"encoding/json"
-	"time"
-	"strings"
-	"github.com/PuerkitoBio/goquery"
-	"net/http/cookiejar"
-	"net/http"
-	"log"
-	"fmt"
+import (
 	"bytes"
+	"encoding/json"
+	"fmt"
+	"github.com/PuerkitoBio/goquery"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"net/http/cookiejar"
+	"os/user"
+	"path/filepath"
 	"strconv"
+	"strings"
+	"time"
 )
 
 var version = "master"
 
 type Settings struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Prices []int `json:"prices"`
-	NoFoodDaysPerWeek int `json:"no_food_days_per_week"`
+	Username          string `json:"username"`
+	Password          string `json:"password"`
+	Prices            []int  `json:"prices"`
+	NoFoodDaysPerWeek int    `json:"no_food_days_per_week"`
 }
 
 func daysLeft(date time.Time) int {
@@ -36,43 +36,43 @@ func buildPredictions(budget float64, settings *Settings) string {
 	if budget <= 0 {
 		return ""
 	}
-  var buffer bytes.Buffer
+	var buffer bytes.Buffer
 
 	// food days left.
 	// compute number of days left in this month, reduce the
 	// no-food days per week
 	daysLeftThisMonth := daysLeft(time.Now())
-	mealdays := daysLeftThisMonth - (daysLeftThisMonth / 7) * settings.NoFoodDaysPerWeek
+	mealdays := daysLeftThisMonth - (daysLeftThisMonth/7)*settings.NoFoodDaysPerWeek
 
 	buffer.WriteString(fmt.Sprintf("🍔 you have to eat for %v more days.\n---\n", mealdays))
-	for _,price := range(settings.Prices){
+	for _, price := range settings.Prices {
 		// how much will be off our current budget for this price?
-		prediction := budget - float64(mealdays * price)
-		gooddays := int(budget/float64(price))
+		prediction := budget - float64(mealdays*price)
+		gooddays := int(budget / float64(price))
 
 		if mealdays <= gooddays {
 			buffer.WriteString(fmt.Sprintf("₪%v: %v (₪+%v left)", price, gooddays, prediction))
-		}else {
-			buffer.WriteString(fmt.Sprintf("₪%v: %v + %v for ₪%v", price, gooddays, mealdays - gooddays, prediction*-1))
+		} else {
+			buffer.WriteString(fmt.Sprintf("₪%v: %v + %v for ₪%v", price, gooddays, mealdays-gooddays, prediction*-1))
 		}
 		if prediction < 0 {
-			 buffer.WriteString("|color=red")
+			buffer.WriteString("|color=red")
 		}
 		buffer.WriteString("\n")
 	}
 	return buffer.String()
 }
 
-func main(){
+func main() {
 	u, err := user.Current()
-	if err != nil{
-		 log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	dot10bis := filepath.Join(u.HomeDir, ".10bis.json")
 	data, err := ioutil.ReadFile(dot10bis)
-	if err != nil{
-		 log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	settings := &Settings{}
@@ -85,15 +85,15 @@ func main(){
 	}
 	client := http.Client{Jar: jar}
 	resp, err := client.Post(
-				"https://www.10bis.co.il/Account/LogonAjax",
-				"application/json",
-				strings.NewReader(
-					fmt.Sprintf("{\"timestamp\":%d,\"model\":{\"UserName\":\"%s\",\"Password\":\"%s\",\"SocialLoginUID\":\"\",\"FacebookUserId\":\"undefined\"},\"returnUrl\":\"\"}",
-											time.Now().Unix(),
-											settings.Username,
-											settings.Password,),
-				),
-			)
+		"https://www.10bis.co.il/Account/LogonAjax",
+		"application/json",
+		strings.NewReader(
+			fmt.Sprintf("{\"timestamp\":%d,\"model\":{\"UserName\":\"%s\",\"Password\":\"%s\",\"SocialLoginUID\":\"\",\"FacebookUserId\":\"undefined\"},\"returnUrl\":\"\"}",
+				time.Now().Unix(),
+				settings.Username,
+				settings.Password),
+		),
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -102,7 +102,7 @@ func main(){
 		log.Fatal(err)
 	}
 
-	doc,err := goquery.NewDocumentFromReader(resp.Body)
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -117,4 +117,3 @@ func main(){
 	submenu := buildPredictions(budget, settings)
 	fmt.Printf("%s\n---\n%s---\n%s", prettyAmount, submenu, version)
 }
-
