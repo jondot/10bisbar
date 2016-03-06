@@ -6,6 +6,11 @@ A [bitbar](https://getbitbar.com) plugin that helps you quit your
 [10Bis](10bis.co.il) guesswork and never get stuck with an empty (or overly
 full) account.
 
+The menu in the picture means: you have 19 more days of ordering to do (working days). Then:
+
+* For a meal costing 30NIS, you can buy 20 meals for the current balance (603NIS)
+* For a meal costing 42NIS, you can buy 14 meals for the current balance (603NIS), and 5 more meals for additional 195NIS which will probably be charged on your credit card.
+* And so on...
 
 ## Quick Start
 
