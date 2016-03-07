@@ -32,7 +32,7 @@ should be good to go immediately.
 
 Place a file called `.10bis.json` at your home folder, so that it will be found in `~/.10bis.json`.
 
-For file's the content, start with this sample:
+For the file's content, start with this sample:
 
 ```json
 {
