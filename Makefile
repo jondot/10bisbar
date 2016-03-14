@@ -7,7 +7,10 @@ clean:
 test:
 	@gom test
 
-build: clean
+get:
+	go get
+
+build: clean get
 	go build -ldflags "-X main.version=$(VERSION) -s"
 	upx -9 10bisbar
 
