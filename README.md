@@ -47,6 +47,7 @@ note that if ```sunday_to_thursday_working_days : false ``` this will get enable
 Put your username and password in, and then put your favorite meal price options in `prices`. Finally,
 indicate how many days per week you don't use 10bis at all (typically weekends).
 
+
 Refresh your bitbar, and you're good to go.
 
 # Contributing
