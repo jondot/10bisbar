@@ -39,12 +39,14 @@ For file's the content, start with this sample:
   "username":"your-10bis-user",
   "password":"your-10bis-password",
   "prices":[30, 42, 69, 80],
-  "no_food_days_per_week": 2
+  "sunday_to_thursday_working_days": true
 }
-```
+```   
+note that if ```sunday_to_thursday_working_days : false ``` this will get enable by default ```monday_to_friday_working_days : true ```   
 
 Put your username and password in, and then put your favorite meal price options in `prices`. Finally,
 indicate how many days per week you don't use 10bis at all (typically weekends).
+
 
 Refresh your bitbar, and you're good to go.
 
