@@ -110,6 +110,7 @@ func main() {
 
 	res := doc.Find(".userReportDataTbl th.currency").First()
 	prettyAmount := strings.TrimSpace(res.Text())
+	prettyAmount = strings.Replace(prettyAmount, ",", "", -1)
 
 	budget, err := strconv.ParseFloat(strings.Replace(prettyAmount, "₪", "", -1), 64)
 	if err != nil {
