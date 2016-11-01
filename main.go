@@ -45,6 +45,7 @@ func buildPredictions(budget float64, settings *Settings) string {
 	mealdays := daysLeftThisMonth - (daysLeftThisMonth/7)*settings.NoFoodDaysPerWeek
 
 	buffer.WriteString(fmt.Sprintf("🍔 you have to eat for %v more days.\n---\n", mealdays))
+	buffer.WriteString(fmt.Sprintf("It's %v a day.\n---\n", budget / float64(mealdays + 1)))
 	for _, price := range settings.Prices {
 		// how much will be off our current budget for this price?
 		prediction := budget - float64(mealdays*price)
