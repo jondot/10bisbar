@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -14,10 +13,13 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 var version = "master"
 
+// Settings Holds the settings for bitbar
 type Settings struct {
 	Username          string `json:"username"`
 	Password          string `json:"password"`
@@ -45,7 +47,7 @@ func buildPredictions(budget float64, settings *Settings) string {
 	mealdays := daysLeftThisMonth - (daysLeftThisMonth/7)*settings.NoFoodDaysPerWeek
 
 	buffer.WriteString(fmt.Sprintf("🍔 you have to eat for %v more days.\n---\n", mealdays))
-	buffer.WriteString(fmt.Sprintf("It's %v a day.\n---\n", budget / float64(mealdays + 1)))
+	buffer.WriteString(fmt.Sprintf("It's %.2f a day.\n---\n", budget/float64(mealdays+1)))
 	for _, price := range settings.Prices {
 		// how much will be off our current budget for this price?
 		prediction := budget - float64(mealdays*price)
